@@ -124,6 +124,7 @@ Pimp my slideshow
 ---
 
 ### Mardown-image-loader
+
 * le `raw-loader` :
   * ne distingue pas les références aux images
   * ne les inclut pas dans la chaîne de dépendances
@@ -200,36 +201,6 @@ ${mdContent.split(markdownImageReferencesRE)
 
 ---
 
-* utilisation
-
-```sh
-yarn add -D mardown-image-loader
-```
-
-```js
-// webpack.config.js
-
-module.exports = {
-  // ...
-  module: {
-    rules: [
-      // ...
-      {
-*        test: /\.(png|jpe?g|gif|svg)$/,
-*        use: 'file-loader?outputPath=img/'
-      },
-      {
-*        test: /\.(md|markdown)$/,
-*        use: 'markdown-image-loader'
-      }
-    ]
-  },
-  plugins: [ /*...*/ ]
-}
-
-```
----
-
 ## Bilan démo 3
 
 * couple loader-plugin
@@ -238,7 +209,92 @@ module.exports = {
 
 ---
 
+## Démo 4
+
+Intégration de diagrammes UML
+* du fichier source à l'image
+* [PlantUML](http://plantuml.com/) sans installation
+
+![](img/plantuml.png)
+
+---
+
+### PlantUML-file-loader
+
+* inspiré du [plantuml-loader](https://github.com/yury/plantuml-loader) de **Yury Korolev** avec des améliorations :
+  * en ES6
+  * inline -> fichier externalisé
+  * utilisation des API non bloquantes
+  * cas d'utilisations et tests unitaires
+
+---
+
+### Fonctionnement
+
+--
+
+Webpack -> MarkdownImageLoader : process .md file
+
+--
+
+MarkdownImageLoader -> MarkdownImageLoader : detect image references
+
+--
+
+MarkdownImageLoader -> PlantUMLFileLoader : process .puml file
+
+--
+
+PlantUMLFileLoader -> Docker : spawn think/plantuml image
+
+--
+
+PlantUMLFileLoader -> Docker : pipe .puml file content
+
+--
+
+Docker -> PlantUMLFileLoader : pipe image content
+
+--
+
+PlantUMLFileLoader -> Webpack : emit image file
+
+--
+
+PlantUMLFileLoader -> MarkdownImageLoader : replace .puml references by image modules
+
+--
+
+MarkdownImageLoader -> Webpack : exports .md as a module
+
+---
+
+## Bilan démo 4
+
+* container docker de conversion
+* versionnement des sources seulement
+* environnement presque WYSIWYG
+
+---
+
+class: middle, merci
+
+# Merci !
+
+Notre TLDR :
+
+<div id="tldr"></div>
+
+---
+
+class: center, middle, merci
+
+# Des questions ?
+
+---
+
 Questions
 
 * story telling à améliorer ?
+* que changer pour un meetup ?
 * quid de la police de caractère ?

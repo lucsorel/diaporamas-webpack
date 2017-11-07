@@ -32,6 +32,40 @@ if (majeurs.length === 2) {
 
 ---
 
+## Markdown-image-loader
+
+Utilisation :
+
+```sh
+yarn add -D markdown-image-loader file-loader
+```
+
+--
+
+```js
+// webpack.config.js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      // ...
+      {
+*        test: /\.(png|jpe?g|gif|svg)$/,
+*        use: 'file-loader?outputPath=img/'
+      },
+      {
+*        test: /\.(md|markdown)$/,
+*        use: 'markdown-image-loader'
+      }
+    ]
+  },
+  plugins: [ /*...*/ ]
+}
+```
+
+
+---
+
 ## Célébration !
 
 ![](img/celebrate.png)

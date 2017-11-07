@@ -14,6 +14,13 @@ datasets.diaporamasWeb = {
     .getData()
 }
 
+datasets.tldr = {
+  content: new DataBuilder('En qq points...')
+    .appendLeaf('webpack')
+    // .appendLabels('')
+    .getData()
+}
+
 module.exports = function loadCharts(window) {
   Object.keys(datasets).forEach(
     datasetKey => new TreeChart(window, datasetKey,
