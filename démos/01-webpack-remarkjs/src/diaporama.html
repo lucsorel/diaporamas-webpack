@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Démo 1 : configuration minimaliste</title>
+  </head>
+  <body>
+    <!-- textarea invisible contenant le diaporama mardown -->
+    <textarea id="source" style="display: none">
+# Importer le markdown
+--
+
+* via le `raw-loader` *inline*
+
+```js
+// src/diaporama.js :
+document.getElementById('source').innerHTML =
+*  require('raw-loader!./diaporama.md')
+```
+--
+
+* OU par la *configuration*
+
+```js
+// src/diaporama.js :
+document.getElementById('source').innerHTML =
+*  require('./diaporama.md')
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+*        test: /\.(md|markdown)$/,
+*        loader: 'raw-loader'
+      }
+    ]
+  },
+}
+
+```
+???
+
+* `yarn add -D raw-loader`
+
+---
+
+**Célébrer !**
+
+    </textarea>
+  </body>
+</html>

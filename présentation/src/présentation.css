@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-weight: normal;
+  font-style: normal;
+  src: url('fonts/OpenDyslexic-Regular.woff') format('opentype');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-weight: bold;
+  font-style: normal;
+  src: url('fonts/OpenDyslexic-Bold.woff') format('opentype');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-weight: normal;
+  font-style: italic, oblique;
+  src: url('fonts/OpenDyslexic-Italic.woff') format('opentype');
+}
+@font-face {
+  font-family: 'OpenDyslexic';
+  font-weight: bold;
+  font-style: italic, oblique;
+  src: url('fonts/OpenDyslexic-BoldItalic.woff') format('opentype');
+}
+
+@font-face {
+  font-family: 'FiraCode';
+  src: url('fonts/FiraCode-Regular.woff') format('opentype');
+}
+
+body {
+  font-family: 'OpenDyslexic';
+  color: #555
+}
+.remark-slide-content h1, .remark-slide-content h2, .remark-slide-content h3 {
+  font-weight: bold;
+}
+.remark-slide-content h1 {
+  font-size: 35px;
+  border-bottom: 5px solid #B21E3E;
+  padding-bottom: 5px;
+}
+.remark-slide-content h2 {
+  font-size: 30px;
+  border-bottom: 5px solid #DA4453;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.remark-code {
+  background-color: #FFF !important;
+  border: solid #55a7dd;
+  border-width: 1px 1px 1px 10px;
+}
+.remark-code, .remark-inline-code { font-family: 'FiraCode'; }
+ul li {
+  list-style-type: none;
+}
+ul li:before {
+    content: '•'; /* Insert content that looks like bullets */
+    padding-right: 8px;
+    color: #DA4453; /* Or a color you prefer */
+}
+/* centers img horizontally */
+.remark-slide img {
+  margin: 0 auto;
+  display: block;
+}

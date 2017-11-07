@@ -1,0 +1,10 @@
+{
+  "name": "zenipack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Luc Sorel",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.10.0"
+  }
+}

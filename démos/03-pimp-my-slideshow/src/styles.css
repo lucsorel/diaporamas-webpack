@@ -1,0 +1,32 @@
+/* police ligaturée */
+@font-face {
+  font-family: 'FiraCode';
+  src: url('fonts/FiraCode-Regular.woff') format('opentype');
+}
+.remark-code, .remark-inline-code {
+  font-family: 'FiraCode';
+}
+.remark-code {
+  background-color: #FFF !important;
+  border: solid #55a7dd;
+  border-width: 1px 1px 1px 10px;
+}
+
+body {
+  color: #555
+}
+.remark-slide-content h1, .remark-slide-content h2, .remark-slide-content h3 {
+  font-weight: bold;
+}
+.remark-slide-content h1 {
+  font-size: 35px;
+  border-bottom: 5px solid #B21E3E;
+  padding-bottom: 5px;
+}
+.remark-slide-content h2 {
+  font-size: 30px;
+  border-bottom: 5px solid #DA4453;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-top: 0;
+}

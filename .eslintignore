@@ -1,0 +1,5 @@
+node_modules/
+**/node_modules/
+**/remark-latest.min.js
+**/jit-yc.js
+**/dist
