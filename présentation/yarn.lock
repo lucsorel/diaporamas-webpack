@@ -2584,6 +2584,10 @@ pkg-dir@^2.0.0:
   dependencies:
     find-up "^2.1.0"
 
+plantuml-file-loader@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/plantuml-file-loader/-/plantuml-file-loader-1.0.1.tgz#6e5382f8500e0d871e687ef04fa7dd3327ab1bf8"
+
 portfinder@^1.0.9:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"

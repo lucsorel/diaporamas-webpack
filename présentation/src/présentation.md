@@ -5,9 +5,20 @@ class: center, middle
 
 ---
 
+<div id="quiSuisJe"></div>
+
+---
+
 ## Diaporamas web
 
 <div id="diaporamasWeb"></div>
+
+???
+
+illustrer les avantages de Remark.js
+* `p` pour passer en mode "présentateur"
+* `c` pour ouvrir une popup pour l'audience, synchronisée avec la vue "présentateur"
+* `b` pour dés/activer l'écran
 
 ---
 
@@ -15,28 +26,38 @@ class: center, middle
 
 ![](img/webpack-process.png)
 
-* producteur d'**artefacts** pour le navigateur
+* producteur (incrémental) d'**artefacts** pour le navigateur
+--
+
 * agrège les ressources comme des `modules`
+--
+
 * **[loaders](https://github.com/webpack/webpack#loaders)** : prétraitements `^(?!.*js)` -> modules `js` (import textuel, transpilage, templating, styles, composants)
+--
+
 * **[plugins](https://github.com/webpack/webpack#plugins)** : autres traitements de fichiers
   * fusion / morcellement de fichiers (js, sprites)
   * extraction / inclusion (html, css)
 
 ???
 
-* Node.js : rassemble des modules ES, CommonJS, AMD
+* Node.js : peut combiner des modules ES, CommonJS, AMD
 * typescript, image -> inline base64, CSS
-* morcellement : pas de minification ni d'obfuscation pour les bibliothèques (vendors)
+* morcellement : minification & obfuscation inutiles pour les bibliothèques (vendors)
 
 ---
 
 ## Webpack-dev-server
 
 * server web de développement pour webpack
+--
+
 * construit les fichiers statiques en mémoire
+--
+
 * rechargement à chaud
 
----
+--
 
 ## Diaporama + webpack-dev-server = ?
 
@@ -59,12 +80,16 @@ class: center, middle
 
 Configuration minimaliste webpack-Remark.js
 
+--
+
 ## Dépendances
 
 ```sh
 yarn add -D webpack webpack-dev-server raw-loader\
   html-webpack-plugin extract-text-webpack-plugin
 ```
+
+--
 
 ## Tâches npm
 
@@ -221,11 +246,13 @@ Intégration de diagrammes UML
 
 ### PlantUML-file-loader
 
-* inspiré du [plantuml-loader](https://github.com/yury/plantuml-loader) de **Yury Korolev** avec des améliorations :
+* projet github [lucsorel/plantuml-file-loader](https://github.com/lucsorel/plantuml-file-loader)
+
+* inspiré du [yury/plantuml-loader](https://github.com/yury/plantuml-loader) de **Yury Korolev** avec des améliorations :
   * en ES6
-  * inline -> fichier externalisé
-  * utilisation des API non bloquantes
-  * cas d'utilisations et tests unitaires
+  * images générées en fichiers tiers (plutôt que remplacement inline)
+  * utilisation d'API Node.js non bloquantes
+  * tests unitaires
 
 ---
 
@@ -253,19 +280,19 @@ PlantUMLFileLoader -> Docker : pipe .puml file content
 
 --
 
-Docker -> PlantUMLFileLoader : pipe image content
+PlantUMLFileLoader <- Docker : pipe image content
 
 --
 
-PlantUMLFileLoader -> Webpack : emit image file
+Webpack <- PlantUMLFileLoader : emit image file
 
 --
 
-PlantUMLFileLoader -> MarkdownImageLoader : replace .puml references by image modules
+MarkdownImageLoader <- PlantUMLFileLoader : replace .puml references by image modules
 
 --
 
-MarkdownImageLoader -> Webpack : exports .md as a module
+Webpack <- MarkdownImageLoader : exports .md as a module
 
 ---
 
@@ -281,7 +308,7 @@ class: middle, merci
 
 # Merci !
 
-Notre TLDR :
+TLDR :
 
 <div id="tldr"></div>
 
@@ -290,11 +317,3 @@ Notre TLDR :
 class: center, middle, merci
 
 # Des questions ?
-
----
-
-Questions
-
-* story telling à améliorer ?
-* que changer pour un meetup ?
-* quid de la police de caractère ?
