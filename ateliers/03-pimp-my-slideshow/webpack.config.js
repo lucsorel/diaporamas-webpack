@@ -1,14 +1,18 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'diaporama.js'),
+  entry: {
+    diaporama: path.join(__dirname, 'src', 'diaporama.js'),
+    vendors: [path.join(__dirname, 'src', 'vendors', 'remark-latest.min.js')]
+  },
   output: {
-    filename: 'démo-02-[hash].js',
+    filename: 'atelier-03-[name]-[hash].js',
     path: path.join(__dirname, 'dist')
   },
   devServer: {
-    port: 8082
+    port: 8083
   },
   module: {
     rules: [
@@ -20,8 +24,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      xhtml: true,
       template: path.join('src', 'diaporama.html')
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
     })
   ]
 }

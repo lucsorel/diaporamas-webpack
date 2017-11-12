@@ -44,7 +44,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      xhtml: true,
       template: path.join('src', 'présentation.html')
     }),
     new ExtractTextPlugin('présentations.[contenthash].css'),

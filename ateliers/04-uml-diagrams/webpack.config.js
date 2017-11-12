@@ -9,7 +9,7 @@ module.exports = {
     vendors: [path.join(__dirname, 'src', 'vendors', 'remark-latest.min.js')]
   },
   output: {
-    filename: 'démo-04-[name]-[hash].js',
+    filename: 'atelier-04-[name]-[hash].js',
     path: path.join(__dirname, 'dist')
   },
   devServer: {

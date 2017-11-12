@@ -70,9 +70,11 @@ const GRAY = '#555'
 
 export class TreeChart {
   constructor(window, domElementHolderId, width = 600, height = 400) {
-    if (!window.document.getElementById(domElementHolderId)) {
+    const chartHolder = window.document.getElementById(domElementHolderId)
+    if (!chartHolder) {
       throw new Error(`could not find an element with id="${domElementHolderId}"`)
     }
+    chartHolder.setAttribute('class', 'tree-chart')
 
     const ht = new $Jit.Hypertree({
       //id of the visualization container

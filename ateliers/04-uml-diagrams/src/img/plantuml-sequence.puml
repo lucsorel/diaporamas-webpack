@@ -1,0 +1,5 @@
+@startuml
+note
+une note inutile pour éviter le message d'erreur d'un diagramme vide
+end note
+@enduml

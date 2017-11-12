@@ -1,9 +1,13 @@
 {
-  "name": "zenipack",
-  "version": "1.0.0",
+  "name": "diaporamas-webpack",
+  "version": "1.0.1",
   "main": "index.js",
-  "author": "Luc Sorel",
+  "author": "Luc Sorel-Giffo",
   "license": "MIT",
+  "scripts": {
+    "install:all": "INSTALL=$( [ -x \"$(command -v yarn)\" ] && echo \"yarn\" || echo \"npm i\"); \"$INSTALL\"; cd présentation; echo \"cd présentation ${INSTALL}...\"; \"$INSTALL\"; cd ..; for atelier in ateliers/*; do cd ${atelier}; echo \"cd ${atelier} ${INSTALL}...\"; \"$INSTALL\"; cd ../..; done",
+    "uninstall:all": "rm -fr node_modules; cd présentation; rm -fr node_modules; cd ..; for atelier in ateliers/*; do cd ${atelier}; rm -fr node_modules; cd ../..; done"
+  },
   "devDependencies": {
     "eslint": "^4.10.0"
   }

@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Atelier 1 : configuration minimaliste</title>
+  </head>
+  <body>
+    <!-- textarea invisible contenant le diaporama mardown -->
+    <textarea id="source" style="display: none">
+# Exploration
+
+Structure :
+
+* `src/diaporama.html` : le code markdown du diaporama dans une `textarea`
+* `src/diaporama.js` : requiert la blibliothèque `src/vendors/remark-latest.min.js` (non dispo via `npm`), lance le diaporama
+* `webpack.config.js` : configuration webpack définissant le point d'entrée de l'application et utilise `HtmlWebpackPlugin` pour intégrer l'artefact produit dans `src/diaporama.html`
+* `package.json` :
+  * déclare les 2 commandes `build` et `start` pour construire les artefacts et les servir via `webpack-dev-server`
+  * déclare les dépendances requises
+
+---
+
+Production des artefacts :
+
+* lancer `npm run build` (ou `yarn build`) à la racine de l'atelier
+* observer les artefacts produits dans `dist` :
+  * `atelier-01-[hash].js` contenant l'exécutable webpack, la bibliothèque remarkjs et notre code de lancement du diaporama
+  * `index.html` produit à partir de `diaporama.html` avec l'artefact `atelier-01-[hash].js` inclus à la fin de `<body>`
+
+---
+
+# Gérer le markdown comme une ressource
+
+Extraire le contenu markdown :
+
+1. créer un fichier `diaporama.md` à côté du fichier `diaporama.js`
+2. externaliser le contenu markdown de la `textarea#source` de `diaporama.html` dans `diaporama.md`
+
+---
+
+L'intégrer comme ressource :
+
+* via le `raw-loader` *inline* (déjà installé, cf. `package.json`)
+
+```js
+// src/diaporama.js :
+document.getElementById('source').innerHTML =
+*  require('raw-loader!./diaporama.md')
+```
+
+* OU par la *configuration*
+
+```js
+// src/diaporama.js :
+document.getElementById('source').innerHTML =
+*  require('./diaporama.md')
+
+// webpack.config.js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+*        test: /\.(md|markdown)$/,
+*        loader: 'raw-loader'
+      }
+    ]
+  },
+  // ...
+}
+```
+
+---
+
+**Célébrer !**
+
+```
+    \o/
+```
+
+    </textarea>
+  </body>
+</html>

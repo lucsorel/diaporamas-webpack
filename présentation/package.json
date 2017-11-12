@@ -6,7 +6,7 @@
     "build": "rm -rf dist && webpack",
     "start": "webpack-dev-server"
   },
-  "author": "Luc Sorel",
+  "author": "Luc Sorel-Giffo",
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^0.28.7",

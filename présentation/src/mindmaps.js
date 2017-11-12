@@ -6,7 +6,7 @@ datasets.quiSuisJe = {
     .appendLeaf('social')
     .appendLabels('@lucsorel', 'github.com/lucsorel')
     .addSibling('pro')
-    .appendLabels('2017+ : Zenika', '2016-17 : Energiency', '2010-16 : Podbox', '2015-18 : PhD Inra')
+    .appendLabels('2017+ : Zenika', '2016-17 : Energiency', '2010-16 : Podbox', '2005-08 : PhD Inra')
     .addSibling('hobbies')
     .appendLabels('musique : piano/guitare', 'humanitaire : Tous pour la Syrie', 'vacataire MyDigitalSchool')
     .getData()
@@ -34,9 +34,9 @@ datasets.tldr = {
     .addSibling('Remark.js')
     .appendLabels('markdown', 'setup minimal', 'tech-friendly')
     .addSibling('markdown-image-loader')
-    .appendLabels("![](my.png) -> require('my.png')")
+    .appendLabels("![](my.png) -> require('my.png')", 'sync')
     .addSibling('plantuml-file-loader')
-    .appendLabels("![](chart.puml) -> require('chart.svg')", 'docker')
+    .appendLabels('docker', 'async', "![](chart.puml) -> require('chart.svg')")
     .getData()
 }
 

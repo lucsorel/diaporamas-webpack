@@ -1,11 +1,12 @@
 # Morcellement de JS
 
-* via le plugin `CommonsChunkPlugin` natif
-* isoler le runtime `webpack`
-* isoler la bibliothèque `remark.js`
+Objectif : isoler via le plugin `CommonsChunkPlugin` natif de `webpack` les 3 artefacts suivants :
+* l'application de démarrage du diaporama
+* l'exécutable' `webpack`
+* la bibliothèque `remark.js`
 
 ---
-
+Pour cela, il suffit de changer la configuration webpack :
 ```js
 // webpack.config.js
 *const webpack = require('webpack')
@@ -17,7 +18,7 @@ module.exports = {
 *       'remark-latest.min.js')]
   },
   output: {
-*    filename: 'démo-02-[name]-[hash].js', /**/
+*    filename: 'atelier-02-[name]-[hash].js', /**/
   },
   module: { rules: [/*...*/] },
   plugins: [
@@ -33,4 +34,19 @@ module.exports = {
 *    })
   ]
 }
+```
+
+---
+
+Comparer :
+
+* lancer la création des artefacts (`npm run build` ou `yarn build`)
+* constater la présence de 3 fichiers `atelier-02-[diaporama|runtime|vendors]-[hash].js`
+
+---
+
+**Célébrer !**
+
+```
+    \o/  \o/
 ```

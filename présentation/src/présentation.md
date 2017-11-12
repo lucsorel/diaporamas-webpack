@@ -1,9 +1,23 @@
 
 class: center, middle
 
-# Webpack & diaporama web
+# Webpack & diaporamas web
+
+.spacer[
+### Interactifs & illustrés
+]
+
+.spacer[
+### Écrire ses loaders
+]
+
+.spacer[
+### Avec des containers dedans !
+]
 
 ---
+
+## À propos
 
 <div id="quiSuisJe"></div>
 
@@ -59,7 +73,7 @@ illustrer les avantages de Remark.js
 
 --
 
-## Diaporama + webpack-dev-server = ?
+## Diaporama + webpack / dev-server = ?
 
 * visualisation à la réalisation
 --
@@ -109,6 +123,9 @@ yarn add -D webpack webpack-dev-server raw-loader\
 ## Bilan démo 1
 
 * externalisation du fichier `markdown`
+* -> coloration syntaxique par votre éditeur
+--
+
 * exposé sous forme de chaîne de caractères via un module
 * génération d'un fichier `index.html` intégrant l'**artefact de compilation**...
 --
@@ -118,15 +135,13 @@ yarn add -D webpack webpack-dev-server raw-loader\
 
 ![](img/obélix-300x268.jpg)
 
-???
-* coloration syntaxique
-
 ---
 
 ## Démo 2
 
 Isoler les modules métier JS des bibliothèques
-* n'obfusquer que le nécessaire
+
+* ne minifier que le nécessaire ([uglifyjs-webpack-plugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/))
 * build incrémental -> plus rapide
 
 ---
@@ -134,15 +149,18 @@ Isoler les modules métier JS des bibliothèques
 ## Bilan démo 2
 
 ![](img/monsieur-maigre.png)
+* utilisation de hash dans les noms de fichiers générés (cache)
 
 ---
 
 ## Démo 3
 
-Pimp my slideshow
-* stylage personnalisé
-* polices
-* images
+Pimp my slideshow!
+
+* stylage personnalisé & polices
+--
+
+* images (ignorées par le `raw-loader`)
   * copier ?
   * inclure dans le cycle de dépendances ?
 
@@ -228,27 +246,44 @@ ${mdContent.split(markdownImageReferencesRE)
 
 ## Bilan démo 3
 
-* couple loader-plugin
-* utilisation de hash dans les noms de fichiers générés (cache)
-* `markdown-image-loader` transforme les références aux images en modules requis
+* couple loader-plugin pour externaliser la feuille de styles
+--
+
+* `markdown-image-loader` :
+  * transforme les références aux images en modules requis
+  * `this.cacheable()` => création incrémentale d'artefacts
 
 ---
 
 ## Démo 4
 
-Intégration de diagrammes UML
+Intégration de diagrammes UML :
+
 * du fichier source à l'image
-* [PlantUML](http://plantuml.com/) sans installation
+  * c'est un boulot pour un loader :)
+
+--
 
 ![](img/plantuml.png)
+
+* [PlantUML](http://plantuml.com/) :
+  * application Java sollicitable en [lignes de commande](http://plantuml.com/command-line)
+  * dépendance : bibliothèque Graphviz en C (génère les images)
+
+-> ?
+--
+
+* installer les outils en local et leur déléguer la génération ?
+* embarquer les applis dans un `container` ?
 
 ---
 
 ### PlantUML-file-loader
 
 * projet github [lucsorel/plantuml-file-loader](https://github.com/lucsorel/plantuml-file-loader)
+--
 
-* inspiré du [yury/plantuml-loader](https://github.com/yury/plantuml-loader) de **Yury Korolev** avec des améliorations :
+* inspiré de [yury/plantuml-loader](https://github.com/yury/plantuml-loader) de **Yury Korolev** avec des améliorations :
   * en ES6
   * images générées en fichiers tiers (plutôt que remplacement inline)
   * utilisation d'API Node.js non bloquantes
@@ -258,57 +293,47 @@ Intégration de diagrammes UML
 
 ### Fonctionnement
 
---
+```js
+*module.exports.raw = true // handles PlantUML contents as buffers
 
-Webpack -> MarkdownImageLoader : process .md file
+module.exports = function PlantUmlFileLoader(plantUmlBuffer) {
+  const callback = this.async()
+  const conf = Object.assign({}, DEFAULT_CONFIG, /*...*/)
+  const url = loaderUtils.interpolateName(this,
+      `${conf.outputPath}${conf.name}.${conf.format}`, {/*...*/})
+  const publicPath =
+    `__webpack_public_path__ + ${JSON.stringify(url)}`
 
---
+*  const umlProcess = childProcess.spawn('docker', ['run -i --rm',
+*    'think/plantuml', '-charset utf8', `-t${conf.format}`]
+*  )
+  bufferAsStream(plantUmlBuffer).pipe(umlProcess.stdin)
 
-MarkdownImageLoader -> MarkdownImageLoader : detect image references
-
---
-
-MarkdownImageLoader -> PlantUMLFileLoader : process .puml file
-
---
-
-PlantUMLFileLoader -> Docker : spawn think/plantuml image
-
---
-
-PlantUMLFileLoader -> Docker : pipe .puml file content
-
---
-
-PlantUMLFileLoader <- Docker : pipe image content
-
---
-
-Webpack <- PlantUMLFileLoader : emit image file
-
---
-
-MarkdownImageLoader <- PlantUMLFileLoader : replace .puml references by image modules
-
---
-
-Webpack <- MarkdownImageLoader : exports .md as a module
+  const chunks = [], errors = []
+  umlProcess.stdout.on('data', d => chunks.push(d))
+  umlProcess.stderr.on('data', e => errors.push(e))
+  umlProcess.on('close', () => {
+    if (errors.length === 0) {
+*      this.emitFile(url, Buffer.concat(chunks))
+*      callback(null, `module.exports = ${publicPath};`)
+    } else callback(new Error(errors.join(', ')))
+  })
+}
+```
 
 ---
 
 ## Bilan démo 4
 
-* container docker de conversion
-* versionnement des sources seulement
-* environnement presque WYSIWYG
+* loader + `container docker` de conversion (transposable à d'autres applications ayant un CLI)
+* seulement les sources de diagrammes à versionner
+* environnement presque WYSIWYG pour l'édition de diagrammes
 
 ---
 
-class: middle, merci
+class: merci
 
 # Merci !
-
-TLDR :
 
 <div id="tldr"></div>
 

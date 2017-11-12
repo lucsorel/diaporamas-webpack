@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: path.join(__dirname, 'src', 'diaporama.js'),
   output: {
-    filename: 'démo-01-[hash].js',
+    filename: 'atelier-01-[hash].js',
     path: path.join(__dirname, 'dist')
   },
   devServer: {
@@ -15,7 +15,6 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      xhtml: true,
       template: path.join('src', 'diaporama.html')
     })
   ]
